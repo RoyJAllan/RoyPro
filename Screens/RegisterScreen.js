@@ -1,10 +1,10 @@
-// NOTE Imported Libs from react
 import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Text, Button, Divider, TextInput} from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Text, Button, ActivityIndicator,  TextInput, Divider  } from 'react-native-paper';
 
-// NOTE MAIN body Component for the Home Screen
-export default function HomeScreen({ navigation }) {
+export default function RegisterScreen({ route, navigation }) {
+  const { user = 'Guest' } = route.params ?? {};
+  const [loading, setLoading] = React.useState(false);
     //STATE INPUT
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
@@ -18,7 +18,7 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text variant='headlineMedium' style={styles.homeMarg}>Home</Text>
+            <Text variant='headlineMedium' style={styles.homeMarg}>Register</Text>
             
             <Divider style={styles.divider} />
 
@@ -46,16 +46,14 @@ export default function HomeScreen({ navigation }) {
                 />
             </View>
 
-            <Button mode='contained' onPress={ () => 
-                navigation.navigate('Event Details', {user: getFullName()})}>
-                Go To Details
+            <Button mode='contained' onPress={ () => {
+                const fullName = getFullName();
+                alert(`Thank You ${fullName}!`);
+            }}>
+                Submit Details
             </Button>
 
             <Divider style={styles.divider} />
-
-            <Button mode='outlined' onPress={() =>{}}>
-                Go to Gallery
-            </Button>
 
         </View>
     );

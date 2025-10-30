@@ -13,15 +13,18 @@ export default function DetailsScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text variant="headlineMedium" style={styles.mb8}>Event Details</Text>
+      <Text variant="headlineMedium" style={styles.mb8}>Eventss</Text>
       <Text variant="bodyLarge" style={styles.mb16}>User: {user}</Text>
 
-      <Button mode='contained' onPress={ () => 
-                      navigation.navigate('Register')}>
-                        Register for Event
-                      </Button>
+      {loading ? (
+        <ActivityIndicator animating />
+      ) : (
+        <Button mode="contained" onPress={simulateLoad}>Simulate Loading</Button>
+      )}
 
-      
+      <Button style={styles.mt16} onPress={() => navigation.goBack()}>
+        Go Back
+      </Button>
     </View>
   );
 }
@@ -33,8 +36,3 @@ const styles = StyleSheet.create({
   mt16: { marginTop: 16 },
 });
  expo
-
-//ANCHOR -  Grave
- //<Button style={styles.mt16} onPress={() => navigation.goBack()}>
-    //    Go Back
-  //    </Button>

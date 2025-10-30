@@ -8,8 +8,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 //NOTE - Screen Imports of the screens in our APP
 import HomeScreen from './Screens/HomeScreen';
-import SettingsScreen from './Screens/SettingsScreen';
+import EventsScreen from './Screens/EventsScreen';
 import DetailsScreen from './Screens/DetailsScreen';
+import ThinkingScreen from './Screens/ThinkingScreen';
+import RegisterScreen from './Screens/RegisterScreen';
 
 //ANCHOR - Primary Nav Approach
 const Tab = createBottomTabNavigator();
@@ -25,8 +27,8 @@ function Tabs() {
           let iconName;
           if (route.name === 'Home') {
             iconName = 'home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = 'settings-outline';
+          } else if (route.name === 'Events') {
+            iconName = 'calendar';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -34,7 +36,7 @@ function Tabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Events" component={EventsScreen} />
     </Tab.Navigator>
   );
 }
@@ -51,7 +53,8 @@ export default function App() {
             component={Tabs}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Event Details" component={DetailsScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
