@@ -1,12 +1,40 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, List, Divider } from 'react-native-paper';
 
 export default function EventsScreen({ navigation }){
+
+          //Mock Data
+
+          //Mock Data
+           const [Events, setEvents] = React.useState([
+        { id: 1, text: 'Surfing'},
+        { id: 2, text: "Dancing"},
+        { id: 3, text: "Sleeping"},
+    ]);
+    
   return (
+           
     <View style={styles.container}>
       <Text style={styles.title}>Events</Text>
       
+      
+      
+      <List.Section>
+                {Events.length === 0 && <Text>No Events Added</Text>}
+                {Events.map((item, index) => (
+                   <View key={item.id}>
+                    <List.Item 
+                            title={item.text}
+                            left={props => <List.Icon {...props} icon="checkbox-blank-circle-outline" />}
+                            accessibilityLabel={`Event ${item.text}`}
+                            />
+                        {index < Events.length - 1 && <Divider style={styles.marg16}/>}
+                    </View>
+                ))}
+            </List.Section>
+                      
+
 
       <Button mode='contained' onPress={ () => 
                 navigation.navigate('Event Details')}>
@@ -19,5 +47,6 @@ export default function EventsScreen({ navigation }){
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center' },
   title: { fontSize: 24, fontWeight: '600' },
+  marg16:{marginBottom: 16},
 });
  
