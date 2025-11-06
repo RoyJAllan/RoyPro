@@ -12,6 +12,7 @@ import EventsScreen from './Screens/EventsScreen';
 import DetailsScreen from './Screens/DetailsScreen';
 import ThinkingScreen from './Screens/ThinkingScreen';
 import RegisterScreen from './Screens/RegisterScreen';
+import SettingsScreen from './Screens/SettingsScreen';
 
 //ANCHOR - Primary Nav Approach
 const Tab = createBottomTabNavigator();
@@ -29,7 +30,10 @@ function Tabs() {
             iconName = 'home-outline';
           } else if (route.name === 'Events') {
             iconName = 'calendar';
+            } else if (route.name === 'Settings') {
+            iconName = 'settings';
           }
+          
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         headerShown: false,
@@ -37,6 +41,7 @@ function Tabs() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Events" component={EventsScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }

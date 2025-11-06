@@ -6,9 +6,8 @@ import {Text, Button, Divider, TextInput} from 'react-native-paper';
 
 // NOTE MAIN body Component for the Home Screen
 export default function HomeScreen({ navigation }) {
-    //STATE INPUT
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setLastName] = React.useState('');
+    //STATE section
+     const [searchQuery, setSearchQuery] = React.useState('');
 
     //Combined name to create user
 
@@ -19,9 +18,9 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text variant='headlineMedium' style={styles.homeMarg}>Evevate Horizon Connect</Text>
+            <Text variant='headlineMedium' style={styles.homeMarg}>Elevate Horizon Connect</Text>
             
-            <Divider style={styles.divider} />
+            <Divider style={styles.divider2} />
             <Text variant='headlineLarge' style={styles.homeMarg}>Welcome</Text>
 
             
@@ -29,13 +28,19 @@ export default function HomeScreen({ navigation }) {
             
 
             <Button style={styles.buts}  mode='contained' onPress={ () => 
-                navigation.navigate('Event Details', {user: getFullName()})}>
+                navigation.navigate('Event Details')}>
                 Go To Event Details
             </Button>
 
             <Divider style={styles.divider} />
 
-            
+            <TextInput
+                    label="Search Events"
+                    value={searchQuery}
+                    onChangeText={setSearchQuery}
+                    mode="outlined"
+                    left={<TextInput.Icon icon="magnify" />}
+                    placeholder="Type to search events..."/>
 
         </View>
     );
@@ -46,6 +51,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
  container: { flex: 1, padding: 20, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
   divider: {marginVertical: 20},
+  divider2: {marginVertical: 10},
   homeMarg: {marginBottom: 16, marginTop: 20},
   homeInput: {marginBottom: 24},
   buts: {backgroundColor: '#2c2727ff'},

@@ -19,28 +19,31 @@ export default function EventsScreen({ navigation }){
       <Text variant="headlineMedium" style={styles.topMarg}>Events</Text> 
       
       
-      //NOTE - Event list
+      
       
       <List.Section>
                 {Events.length === 0 && <Text>No Events Added</Text>}
                 {Events.map((item, index) => (
                    <View key={item.id}>
+                    
                     <List.Item 
                             title={item.text}
                             left={props => <List.Icon {...props} icon="checkbox-blank-circle-outline" />}
                             accessibilityLabel={`Event ${item.text}`}
                             />
+                            
                         {index < Events.length - 1 && <Divider style={styles.marg16}/>}
                     </View>
                 ))}
             </List.Section>
-                      
-
-
+                     
+          <Divider style={styles.divider} />
       <Button style={styles.buts} mode='contained' onPress={ () => 
                 navigation.navigate('Event Details')}>
                   Event Details
                 </Button>
+
+           <Divider style={styles.divider} />     
     </View>
   );
 }
@@ -50,6 +53,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 24, fontWeight: '600' },
   topMarg: {marginBottom: 16, marginTop: 20},
   buts: {backgroundColor: '#2c2727ff'},
+  divider: {marginVertical: 20},
   marg16:{marginBottom: 16},
   mb8: { marginBottom: 8 },
   mb16: { marginBottom: 16 },
