@@ -30,9 +30,9 @@ export default function DetailsScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'flex-start' },
+  container: { flex: 1, padding: 20, justifyContent: 'flex-start'},
   mb8: { marginBottom: 8 },
-  mb16: { marginBottom: 16 },
+  mb16: { marginBottom: 16},
   mt16: { marginTop: 16 },
 });
  expo

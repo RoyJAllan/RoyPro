@@ -3,6 +3,7 @@ import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, Divider, TextInput} from 'react-native-paper';
 
+
 // NOTE MAIN body Component for the Home Screen
 export default function HomeScreen({ navigation }) {
     //STATE INPUT
@@ -18,44 +19,23 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text variant='headlineMedium' style={styles.homeMarg}>Home</Text>
+            <Text variant='headlineMedium' style={styles.homeMarg}>Evevate Horizon Connect</Text>
             
             <Divider style={styles.divider} />
+            <Text variant='headlineLarge' style={styles.homeMarg}>Welcome</Text>
 
-            <View style={styles.inputContainer}>
-                <TextInput
-                    label='Enter Your Name'
-                    value={firstName}
-                    onChangeText={setFirstName}
-                    mode='outlined'
-                    left={<TextInput.Icon icon="account"/>}
-                    placeholder='Enter first name here'
-                    maxLength={20}
-                />
-            </View>
+            
+            <Text variant='bodyLarge' style={styles.homeMarg}> Find and register for Events</Text>
+            
 
-            <View style={styles.inputContainer}>
-                <TextInput
-                    label='Enter Your last name'
-                    value={lastName}
-                    onChangeText={setLastName}
-                    mode='outlined'
-                    left={<TextInput.Icon icon="account"/>}
-                    placeholder='Enter last name here'
-                    maxLength={20}
-                />
-            </View>
-
-            <Button mode='contained' onPress={ () => 
+            <Button style={styles.buts}  mode='contained' onPress={ () => 
                 navigation.navigate('Event Details', {user: getFullName()})}>
-                Go To Details
+                Go To Event Details
             </Button>
 
             <Divider style={styles.divider} />
 
-            <Button mode='outlined' onPress={() =>{}}>
-                Go to Gallery
-            </Button>
+            
 
         </View>
     );
@@ -64,18 +44,24 @@ export default function HomeScreen({ navigation }) {
 
 // NOTE MAIN Styles ref 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center' },
-  divider: {marginVertical: 18},
+ container: { flex: 1, padding: 20, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
+  divider: {marginVertical: 20},
   homeMarg: {marginBottom: 16, marginTop: 20},
   homeInput: {marginBottom: 24},
+  buts: {backgroundColor: '#2c2727ff'},
   inputContainer: {
     width:'80%',
     alignContent: 'center',
     marginBottom: 24,
+    mb8: { marginBottom: 8 },
   }
 });
 
 /*CODE Graveyard
     * OLD title CSS for text on react native core
     * title: { fontSize: 24, fontWeight: '600', marginBottom: 12 },
+    * 
+    * saved for style ref <Button mode='outlined' onPress={() =>{}}>
+                Go to Gallery
+            </Button>
 */

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, List, Divider } from 'react-native-paper';
+import { Text, Button, List, Divider, TextInput } from 'react-native-paper';
 
 export default function EventsScreen({ navigation }){
 
@@ -16,9 +16,10 @@ export default function EventsScreen({ navigation }){
   return (
            
     <View style={styles.container}>
-      <Text style={styles.title}>Events</Text>
+      <Text variant="headlineMedium" style={styles.topMarg}>Events</Text> 
       
       
+      //NOTE - Event list
       
       <List.Section>
                 {Events.length === 0 && <Text>No Events Added</Text>}
@@ -36,7 +37,7 @@ export default function EventsScreen({ navigation }){
                       
 
 
-      <Button mode='contained' onPress={ () => 
+      <Button style={styles.buts} mode='contained' onPress={ () => 
                 navigation.navigate('Event Details')}>
                   Event Details
                 </Button>
@@ -45,8 +46,13 @@ export default function EventsScreen({ navigation }){
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center' },
+  container: { flex: 1, padding: 40, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
   title: { fontSize: 24, fontWeight: '600' },
+  topMarg: {marginBottom: 16, marginTop: 20},
+  buts: {backgroundColor: '#2c2727ff'},
   marg16:{marginBottom: 16},
+  mb8: { marginBottom: 8 },
+  mb16: { marginBottom: 16 },
+  mt16: { marginTop: 16 },
 });
  

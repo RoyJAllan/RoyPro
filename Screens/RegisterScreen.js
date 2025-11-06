@@ -46,7 +46,7 @@ export default function RegisterScreen({ route, navigation }) {
                 />
             </View>
 
-            <Button mode='contained' onPress={ () => {
+            <Button style={styles.buts} mode='contained' onPress={ () => {
                 const fullName = getFullName();
                 alert(`Thank You ${fullName}!`);
             }}>
@@ -62,7 +62,8 @@ export default function RegisterScreen({ route, navigation }) {
 
 // NOTE MAIN Styles ref 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center' },
+  container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: '#99cafcff' },
+  buts: {backgroundColor: '#2c2727ff'},
   divider: {marginVertical: 18},
   homeMarg: {marginBottom: 16, marginTop: 20},
   homeInput: {marginBottom: 24},

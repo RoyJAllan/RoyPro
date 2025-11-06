@@ -16,7 +16,7 @@ export default function DetailsScreen({ route, navigation }) {
       <Text variant="headlineMedium" style={styles.mb8}>Event Details</Text>
       <Text variant="bodyLarge" style={styles.mb16}>User: {user}</Text>
 
-      <Button mode='contained' onPress={ () => 
+      <Button style={styles.buts} mode='contained' onPress={ () => 
                       navigation.navigate('Register')}>
                         Register for Event
                       </Button>
@@ -27,7 +27,8 @@ export default function DetailsScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'flex-start' },
+  container: { flex: 1, padding: 20, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
+  buts: {backgroundColor: '#2c2727ff'},
   mb8: { marginBottom: 8 },
   mb16: { marginBottom: 16 },
   mt16: { marginTop: 16 },
