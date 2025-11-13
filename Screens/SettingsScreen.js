@@ -1,22 +1,44 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, List, Divider, TextInput } from 'react-native-paper';
+import { Text, Button, List, Divider, TextInput, Switch, Snackbar } from 'react-native-paper';
 
 export default function SettingScreen({ navigation }){
+  const [sounds, setSounds] = React.useState(true);
+  const [snack, setSnack] = React.useState(false);
+  const[DarkMode, setDarkMode] = React.useState(false);
+  
 
-          
-
-    
   return (
-           
     <View style={styles.container}>
-      <Text variant="headlineMedium" style={styles.topMarg}>Settings</Text> 
-      
-      
-      
-      
-      
-           <Divider style={styles.divider} />     
+      <Text variant="headlineMedium" style={styles.mb16}>Settings</Text>
+
+      <List.Section>
+        <List.Item
+          title="Sounds"
+          description={sounds ? 'On' : 'Off'}
+          right={() => (
+            <Switch value={sounds} onValueChange={() => setSounds(!sounds)} />
+          )}
+        />
+      </List.Section>
+
+      <List.Section>
+        <List.Item 
+          title="Dark Mode"
+          description={DarkMode ? 'On' : 'Off'}
+          right={() => (
+            <Switch  value={DarkMode} onValueChange={() => setDarkMode(!DarkMode)} />
+          )}
+        />
+      </List.Section>
+
+      <Button style={styles.buts} mode="contained" onPress={() => setSnack(true)}>
+        Save Settings
+      </Button>
+
+      <Snackbar visible={snack} onDismiss={() => setSnack(false)} duration={1500}>
+        Settings saved
+      </Snackbar>
     </View>
   );
 }
