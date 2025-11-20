@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, List, Divider, TextInput } from 'react-native-paper';
+import { Text, Button, List, Divider, TextInput, IconButton } from 'react-native-paper';
 
 export default function EventsScreen({ navigation }){
 
@@ -11,7 +11,37 @@ export default function EventsScreen({ navigation }){
         { id: 1, text: 'Surfing'},
         { id: 2, text: "Dancing"},
         { id: 3, text: "Sleeping"},
+
+         
     ]);
+
+      const [EventDetails, setDetails] = React.useState([
+        {id: 1, text: 'Join us for a friendly comp at Boomerang beach!'},
+        { id: 2, text: 'Learn to dance with professional instructors!' },
+        { id: 3, text: 'Relax and recharge with a guided sleep session!' },
+
+      ]);
+
+      // Track Selected Event
+      const [selectedEvent, setSelectedEvent] = React.useState(null);
+
+      //Handle selection
+      const handleEventSelect = (item) => {setSelectedEvent(item); };
+
+      //Navigate Event Details with selected event
+      const navigateToEventDetails = () => { if (selectedEvent) {
+        const eventDetail = EventDetails.find(details => details.id === selectedEvent.id);
+
+        navigation.navigate('Event Details', {
+          event:selectedEvent,
+          eventDetail: eventDetail
+        });
+      } else {
+        alert('Please select an Event')
+      }
+
+      };
+
     
   return (
            
@@ -19,7 +49,7 @@ export default function EventsScreen({ navigation }){
       <Text variant="headlineMedium" style={styles.topMarg}>Events</Text> 
       
       
-      
+      {/* Event List */}
       
       <List.Section>
                 {Events.length === 0 && <Text>No Events Added</Text>}
@@ -28,8 +58,23 @@ export default function EventsScreen({ navigation }){
                     
                     <List.Item 
                             title={item.text}
-                            left={props => <List.Icon {...props} icon="checkbox-blank-circle-outline" />}
+                            onPress={() => handleEventSelect(item)}
+                            left={props => 
+                            <IconButton
+                            {...props} 
+                            icon={
+                              selectedEvent?.id === item.id
+                              ? 'check-circle-outline'
+                              : 'checkbox-blank-circle-outline'
+                            }
+                            iconColor={selectedEvent?.id ===item.id ? '#2c2727ff' : '#8a8787ff'}
+                            onPress={() => handleEventSelect(item)}
+                            />
+                          }
                             accessibilityLabel={`Event ${item.text}`}
+                            style={[
+                            selectedEvent?.id === item.id && styles.selectedItem
+                            ]}
                             />
                             
                         {index < Events.length - 1 && <Divider style={styles.marg16}/>}
@@ -38,10 +83,26 @@ export default function EventsScreen({ navigation }){
             </List.Section>
                      
           <Divider style={styles.divider} />
-      <Button style={styles.buts} mode='contained' onPress={ () => 
-                navigation.navigate('Event Details')}>
+
+          {selectedEvent && (
+        <View style={styles.selectedContainer}>
+          <Text style={styles.selectedText}>
+            Selected: {selectedEvent.text}
+          </Text>
+        </View>
+      )}
+
+      <Divider style={styles.divider} />
+      
+           
+      <Button style={styles.buts}
+       mode='contained' 
+       onPress={navigateToEventDetails}
+       disable = {!selectedEvent}
+       >
                   Event Details
                 </Button>
+        
 
            <Divider style={styles.divider} />     
     </View>

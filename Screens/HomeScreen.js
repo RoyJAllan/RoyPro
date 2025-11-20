@@ -27,20 +27,22 @@ export default function HomeScreen({ navigation }) {
             <Text variant='bodyLarge' style={styles.homeMarg}> Find and register for Events</Text>
             
 
-            <Button style={styles.buts}  mode='contained' onPress={ () => 
-                navigation.navigate('Event Details')}>
-                Go To Event Details
-            </Button>
+            
 
-            <Divider style={styles.divider} />
+            
 
             <TextInput
-                    label="Search Events"
+                    label="Enter event here"
                     value={searchQuery}
                     onChangeText={setSearchQuery}
                     mode="outlined"
                     left={<TextInput.Icon icon="magnify" />}
                     placeholder="Type to search events..."/>
+                    <Divider style={styles.divider} />
+
+                    <Button style={styles.buts}  mode='contained'>
+                View Details
+            </Button>
 
         </View>
     );

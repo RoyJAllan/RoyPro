@@ -5,6 +5,7 @@ import { Text, Button, ActivityIndicator, Divider } from 'react-native-paper';
 export default function DetailsScreen({ route, navigation }) {
   const { user = 'Guest' } = route.params ?? {};
   const [loading, setLoading] = React.useState(false);
+  const { event, eventDetail } = route.params;
 
   const simulateLoad = () => {
     setLoading(true);
@@ -13,10 +14,15 @@ export default function DetailsScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text variant="headlineMedium" style={styles.mb8}>Event Details</Text>
+      
+      
+      <Text variant="headlineMedium">{event.text}</Text>
+      <Divider style={styles.divider}/>
+      <Text variant="bodyMedium" style={styles.detailText}>
+        {eventDetail.text}
+      </Text>
       <Divider style={styles.divider}/>
       
-
       <Button style={styles.buts} mode='contained' onPress={ () => 
                       navigation.navigate('Register')}>
                         Register for Event
