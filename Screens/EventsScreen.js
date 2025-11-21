@@ -95,7 +95,7 @@ export default function EventsScreen({ navigation }){
         const eventDetails ={
         id:selectedEvent.id,
         text: `${selectedEvent.description}\n\nDate: ${selectedEvent.date}\nTime: ${selectedEvent.startTime} - ${selectedEvent.endTime}
-        \nLocation: ${selectedEvent.location} \nCategory: ${selectedEvent.category}/nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity}${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
+        \nLocation: ${selectedEvent.location} \nCategory: ${selectedEvent.category}\nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity} ${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
           
         };
         navigation.navigate('Event Details', {

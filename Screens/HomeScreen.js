@@ -32,14 +32,7 @@ export default function HomeScreen({ navigation }) {
             
 
             
-                     {/* Search Input */}
-                          <TextInput
-                            label="Search events..."
-                            value={q}
-                            onChangeText={setQ}
-                            style={styles.mb16}
-                            mode="outlined"
-                          />
+                   
                     <Divider style={styles.divider} />
 
                     <Button style={styles.buts}  mode='contained'>
