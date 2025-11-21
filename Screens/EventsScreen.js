@@ -1,96 +1,186 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, List, Divider, TextInput, IconButton } from 'react-native-paper';
+import { Text, Button, List, Divider, TextInput, IconButton, Snackbar } from 'react-native-paper';
+
+//Json Data
+ const JSON_URL = 'https://raw.githubusercontent.com/RoyJAllan/RemoteData/refs/heads/main/tasks.json';
+
 
 export default function EventsScreen({ navigation }){
 
-          //Mock Data
 
-          //Mock Data
-           const [Events, setEvents] = React.useState([
-        { id: 1, text: 'Surfing'},
-        { id: 2, text: "Dancing"},
-        { id: 3, text: "Sleeping"},
+  //NOTE - REMOTE DATA test
+  const [events, setEvents] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState('');
+  const [snack, setSnack] = React.useState('');
+  
+
+          
+
+          //Mock Local Data
+          
+           //const [Events, setEvents] = React.useState([
+       // { id: 1, text: 'Surfing'},
+     //  { id: 2, text: "Dancing"},
+       // { id: 3, text: "Sleeping"},
 
          
-    ]);
+  //  ]);
 
-      const [EventDetails, setDetails] = React.useState([
-        {id: 1, text: 'Join us for a friendly comp at Boomerang beach!'},
-        { id: 2, text: 'Learn to dance with professional instructors!' },
-        { id: 3, text: 'Relax and recharge with a guided sleep session!' },
+      //const [EventDetails, setDetails] = React.useState([
+    //  {id: 1, text: 'Join us for a friendly comp at Boomerang beach!'},
+//{ id: 2, text: 'Learn to dance with professional instructors!' },
+   //     { id: 3, text: 'Relax and recharge with a guided sleep session!' },
 
-      ]);
+   //   ]);
+
+        //ANCHOR - Load Remote data into our APP from the JSON file on gitpages
+  const loadRemote = React.useCallback(async () => {
+    try {
+      setLoading(true);
+      setErrorMsg('')
+      const request = await fetch(JSON_URL, {cache: 'no-store'})
+      if(!request.ok) throw new Error(`HTTP ${request.status}`);
+      const jsonReq = await request.json();
+      const arrReq = Array.isArray(jsonReq) ? jsonReq : [];
+
+
+      // Clean + store remote tasks
+      const cleaned = arrReq.filter(
+        (x) => x && typeof x.id !== 'undefined' && typeof x.title === 'string'
+      );
+      setEvents(cleaned);
+      console.log('REMOTE DATA:', cleaned); 
+
+
+      
+    }
+    catch (e) {
+      console.error(e);
+      setErrorMsg('USER YOUR APP FAILED: Failed to load remote data');
+      setSnack('Failed to Load Event Data');
+    }
+    finally {
+      setLoading(false);
+    }
+  }, 
+  []);
+  
+  //TEST FETCH on start
+  React.useEffect(() => {
+    loadRemote();
+  },
+  [loadRemote]);
+
+    //NOTE - Merge local and remote data
+  //const merged = [...remoteTasks, ...Events];
+
+    //ANCHOR - Search filter
+  const [q, setQ] = React.useState('');
+  const filteredEvents = events.filter((event) =>
+    (event.title ?? '').toLowerCase().includes(q.toLowerCase())
+  );
+
+
 
       // Track Selected Event
       const [selectedEvent, setSelectedEvent] = React.useState(null);
 
       //Handle selection
-      const handleEventSelect = (item) => {setSelectedEvent(item); };
+      const handleEventSelect = (event) => {setSelectedEvent(event); };
 
       //Navigate Event Details with selected event
       const navigateToEventDetails = () => { if (selectedEvent) {
-        const eventDetail = EventDetails.find(details => details.id === selectedEvent.id);
-
+        const eventDetails ={
+        id:selectedEvent.id,
+        text: `${selectedEvent.description}\n\nDate: ${selectedEvent.date}\nTime: ${selectedEvent.startTime} - ${selectedEvent.endTime}
+        \nLocation: ${selectedEvent.location} \nCategory: ${selectedEvent.category}/nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity}${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
+          
+        };
         navigation.navigate('Event Details', {
-          event:selectedEvent,
-          eventDetail: eventDetail
-        });
-      } else {
-        alert('Please select an Event')
+          event: {
+          id:selectedEvent.id,
+          displayText: selectedEvent.title,
+          OriginalData: selectedEvent
+        },
+        eventDetail: eventDetails
+
+      }); 
+     } else {
+        alert('Please select an Event');
       }
 
       };
 
-    
+// Add info for events
+
   return (
            
     <View style={styles.container}>
       <Text variant="headlineMedium" style={styles.topMarg}>Events</Text> 
+
+      {/* Search Input */}
+      <TextInput
+        label="Search events..."
+        value={q}
+        onChangeText={setQ}
+        style={styles.mb16}
+        mode="outlined"
+      />
+
+      {/* Loading */}
+      {loading && <Text>Loading events...</Text>}
+
+      {/* Error Message */}
+      {errorMsg ? <Text style={styles.errorText}>{errorMsg}</Text> : null}
+
+
       
       
       {/* Event List */}
       
       <List.Section>
-                {Events.length === 0 && <Text>No Events Added</Text>}
-                {Events.map((item, index) => (
-                   <View key={item.id}>
-                    
+                {filteredEvents.length === 0 && <Text>No Events Added</Text>}
+                {filteredEvents.map((event, index) => {       
+                return (
+                   <View key={event.id}>
                     <List.Item 
-                            title={item.text}
-                            onPress={() => handleEventSelect(item)}
+                            title={event.title}
+                            onPress={() => handleEventSelect(event)}
                             left={props => 
                             <IconButton
                             {...props} 
                             icon={
-                              selectedEvent?.id === item.id
+                              selectedEvent?.id === event.id
                               ? 'check-circle-outline'
                               : 'checkbox-blank-circle-outline'
                             }
-                            iconColor={selectedEvent?.id ===item.id ? '#2c2727ff' : '#8a8787ff'}
-                            onPress={() => handleEventSelect(item)}
+                            iconColor={selectedEvent?.id ===event.id ? '#2c2727ff' : '#8a8787ff'}
+                            onPress={() => handleEventSelect(event)}
                             />
                           }
-                            accessibilityLabel={`Event ${item.text}`}
+                            accessibilityLabel={`Event ${event.title}`}
                             style={[
-                            selectedEvent?.id === item.id && styles.selectedItem
+                            selectedEvent?.id === event.id && styles.selectedItem
                             ]}
                             />
                             
-                        {index < Events.length - 1 && <Divider style={styles.marg16}/>}
+                        {index < filteredEvents.length - 1 && <Divider style={styles.marg16}/>}
                     </View>
-                ))}
+                );
+                })}
             </List.Section>
                      
           <Divider style={styles.divider} />
 
           {selectedEvent && (
-        <View style={styles.selectedContainer}>
-          <Text style={styles.selectedText}>
-            Selected: {selectedEvent.text}
-          </Text>
-        </View>
-      )}
+            <View style={styles.selectedContainer}>
+            <Text style={styles.selectedText}>
+            Selected: {selectedEvent.title}
+           </Text>
+           </View>
+            )}
 
       <Divider style={styles.divider} />
       
@@ -98,13 +188,25 @@ export default function EventsScreen({ navigation }){
       <Button style={styles.buts}
        mode='contained' 
        onPress={navigateToEventDetails}
-       disable = {!selectedEvent}
+       disable = {!selectedEvent || loading}
        >
                   Event Details
                 </Button>
         
 
            <Divider style={styles.divider} />     
+
+            <Snackbar
+        visible={!!snack}
+        onDismiss={() => setSnack('')}
+        action={{
+          label: 'OK',
+          onPress: () => setSnack(''),
+        }}
+        duration={3000}
+      >
+        {snack}
+      </Snackbar>
     </View>
   );
 }

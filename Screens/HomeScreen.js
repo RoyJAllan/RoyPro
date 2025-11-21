@@ -31,13 +31,15 @@ export default function HomeScreen({ navigation }) {
 
             
 
-            <TextInput
-                    label="Enter event here"
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                    mode="outlined"
-                    left={<TextInput.Icon icon="magnify" />}
-                    placeholder="Type to search events..."/>
+            
+                     {/* Search Input */}
+                          <TextInput
+                            label="Search events..."
+                            value={q}
+                            onChangeText={setQ}
+                            style={styles.mb16}
+                            mode="outlined"
+                          />
                     <Divider style={styles.divider} />
 
                     <Button style={styles.buts}  mode='contained'>

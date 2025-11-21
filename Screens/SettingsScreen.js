@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, List, Divider, TextInput, Switch, Snackbar } from 'react-native-paper';
+import { ThemeContext } from '../Theme/ThemeContext';  
 
 export default function SettingScreen({ navigation }){
+  const {isDark, toggleTheme} = React.useContext(ThemeContext);
+
   const [sounds, setSounds] = React.useState(true);
   const [snack, setSnack] = React.useState(false);
-  const[DarkMode, setDarkMode] = React.useState(false);
+  
   
 
   return (
@@ -25,9 +28,9 @@ export default function SettingScreen({ navigation }){
       <List.Section>
         <List.Item 
           title="Dark Mode"
-          description={DarkMode ? 'On' : 'Off'}
+          description={isDark ? 'On' : 'Off'}
           right={() => (
-            <Switch  value={DarkMode} onValueChange={() => setDarkMode(!DarkMode)} />
+            <Switch  value={isDark} onValueChange={toggleTheme}  />
           )}
         />
       </List.Section>
