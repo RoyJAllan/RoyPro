@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text, Button, ActivityIndicator,  TextInput, Divider  } from 'react-native-paper';
+import { Text, Button, TextInput, Divider, Menu, Provider } from 'react-native-paper';
+import { ThemeContext } from '../Theme/ThemeContext'; 
+
 
 export default function RegisterScreen({ route, navigation }) {
   const { user = 'Guest' } = route.params ?? {};
@@ -8,6 +10,8 @@ export default function RegisterScreen({ route, navigation }) {
     //STATE INPUT
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+    
+
 
     //Combined name to create user
 
@@ -15,12 +19,43 @@ export default function RegisterScreen({ route, navigation }) {
       return `${firstName} ${lastName}`.trim();
 
     };
+const {theme} = React.useContext(ThemeContext)
 
+     const styles = StyleSheet.create({
+                        container: { 
+                            flex: 1, 
+                            padding: 40, 
+                            justifyContent: 'flex-start',
+                            backgroundColor: theme.colors.background 
+                        },
+                        divider: {marginVertical: 20},
+                        divider2: {marginVertical: 10},
+                        divder3: {marginVertical: 30},
+                        homeMarg: {
+                            marginBottom: 16, 
+                            marginTop: 20,
+                            color: theme.colors.text 
+                        },
+                        homeInput: {marginBottom: 24},
+                        buts: {
+                            backgroundColor: theme.colors.primary 
+                        },
+                        inputContainer: {
+                            width:'80%',
+                            alignContent: 'center',
+                            marginBottom: 24,
+                        },
+                        mb8: { marginBottom: 8 },
+                        buttonText: {
+                            color: theme.colors.buttoncolor 
+                        }
+                    });
     return (
         <View style={styles.container}>
             <Text variant='headlineMedium' style={styles.homeMarg}>Register</Text>
             
             <Divider style={styles.divider} />
+
 
             <View style={styles.inputContainer}>
                 <TextInput
@@ -45,36 +80,18 @@ export default function RegisterScreen({ route, navigation }) {
                     maxLength={20}
                 />
             </View>
-
-            <Button style={styles.buts} mode='contained' onPress={ () => {
+            <Divider style={styles.divider} />
+            <Button labelStyle={styles.buttonText} style={styles.buts} mode='contained' onPress={ () => {
                 const fullName = getFullName();
                 alert(`Thank You ${fullName}!`);
             }}>
                 Submit Details
             </Button>
 
-            <Divider style={styles.divider} />
+            
 
         </View>
     );
 }
 
 
-// NOTE MAIN Styles ref 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: '#99cafcff' },
-  buts: {backgroundColor: '#2c2727ff'},
-  divider: {marginVertical: 18},
-  homeMarg: {marginBottom: 16, marginTop: 20},
-  homeInput: {marginBottom: 24},
-  inputContainer: {
-    width:'80%',
-    alignContent: 'center',
-    marginBottom: 24,
-  }
-});
-
-/*CODE Graveyard
-    * OLD title CSS for text on react native core
-    * title: { fontSize: 24, fontWeight: '600', marginBottom: 12 },
-*/

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, List, Divider, TextInput, IconButton, Snackbar } from 'react-native-paper';
+import { Text, Button, List, Divider, TextInput, IconButton, Snackbar, Icon } from 'react-native-paper';
 import { ThemeContext } from '../Theme/ThemeContext'; 
+
 
 //Json Data
  const JSON_URL = 'https://raw.githubusercontent.com/RoyJAllan/RemoteData/refs/heads/main/tasks.json';
@@ -124,8 +125,9 @@ export default function EventsScreen({ navigation }){
       const navigateToEventDetails = () => { if (selectedEvent) {
         const eventDetails ={
         id:selectedEvent.id,
-        text: `${selectedEvent.description}\n\nDate: ${selectedEvent.date}\nTime: ${selectedEvent.startTime} - ${selectedEvent.endTime}
-        \nLocation: ${selectedEvent.location} \nCategory: ${selectedEvent.category}\nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity} ${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
+        title:`${selectedEvent.title}` ,
+        text: `${selectedEvent.description}\n\nDate:${selectedEvent.date}\nTime: ${selectedEvent.startTime} - ${selectedEvent.endTime} 
+        \n Location: ${selectedEvent.location} \nCategory: ${selectedEvent.category}\nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity} ${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
           
         };
         navigation.navigate('Event Details', {

@@ -1,11 +1,44 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text, Button, ActivityIndicator, Divider } from 'react-native-paper';
+import { Text, Button,  Divider } from 'react-native-paper';
+import { ThemeContext } from '../Theme/ThemeContext'; 
+
 
 export default function DetailsScreen({ route, navigation }) {
   const { user = 'Guest' } = route.params ?? {};
   const [loading, setLoading] = React.useState(false);
-  const { event, eventDetail } = route.params;
+  const { event, eventDetail} = route.params;
+  const {theme} = React.useContext(ThemeContext)
+
+   const styles = StyleSheet.create({
+                    container: { 
+                        flex: 1, 
+                        padding: 40, 
+                        justifyContent: 'flex-start',
+                        backgroundColor: theme.colors.background 
+                    },
+                    divider: {marginVertical: 20},
+                    divider2: {marginVertical: 10},
+                    divder3: {marginVertical: 30},
+                    homeMarg: {
+                        marginBottom: 16, 
+                        marginTop: 20,
+                        color: theme.colors.text 
+                    },
+                    homeInput: {marginBottom: 24},
+                    buts: {
+                        backgroundColor: theme.colors.primary 
+                    },
+                    inputContainer: {
+                        width:'80%',
+                        alignContent: 'center',
+                        marginBottom: 24,
+                    },
+                    mb8: { marginBottom: 8 },
+                    buttonText: {
+                        color: theme.colors.buttoncolor 
+                    }
+                });
 
   const simulateLoad = () => {
     setLoading(true);
@@ -16,14 +49,14 @@ export default function DetailsScreen({ route, navigation }) {
     <View style={styles.container}>
       
       
-      <Text variant="headlineMedium">{event.text}</Text>
+      <Text variant="headlineSmall">{eventDetail.title}</Text>
       <Divider style={styles.divider}/>
       <Text variant="bodyMedium" style={styles.detailText}>
         {eventDetail.text}
       </Text>
       <Divider style={styles.divider}/>
       
-      <Button style={styles.buts} mode='contained' onPress={ () => 
+      <Button labelStyle={styles.buttonText} style={styles.buts} mode='contained' onPress={ () => 
                       navigation.navigate('Register')}>
                         Register for Event
                       </Button>
@@ -34,14 +67,6 @@ export default function DetailsScreen({ route, navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
-   divider: {marginVertical: 20},
-  buts: {backgroundColor: '#2c2727ff'},
-  mb8: { marginBottom: 8 },
-  mb16: { marginBottom: 16 },
-  mt16: { marginTop: 16 },
-});
  expo
 
 //ANCHOR -  Grave
