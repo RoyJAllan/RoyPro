@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, List, Divider, TextInput, IconButton, Snackbar } from 'react-native-paper';
+import { ThemeContext } from '../Theme/ThemeContext'; 
 
 //Json Data
  const JSON_URL = 'https://raw.githubusercontent.com/RoyJAllan/RemoteData/refs/heads/main/tasks.json';
@@ -14,9 +15,38 @@ export default function EventsScreen({ navigation }){
   const [loading, setLoading] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState('');
   const [snack, setSnack] = React.useState('');
+  const {theme} = React.useContext(ThemeContext)
   
 
-          
+           const styles = StyleSheet.create({
+                  container: { 
+                      flex: 1, 
+                      padding: 40, 
+                      justifyContent: 'flex-start',
+                      backgroundColor: theme.colors.background 
+                  },
+                  divider: {marginVertical: 20},
+                  divider2: {marginVertical: 10},
+                  divder3: {marginVertical: 30},
+                  homeMarg: {
+                      marginBottom: 16, 
+                      marginTop: 20,
+                      color: theme.colors.text 
+                  },
+                  homeInput: {marginBottom: 24},
+                  buts: {
+                      backgroundColor: theme.colors.primary 
+                  },
+                  inputContainer: {
+                      width:'80%',
+                      alignContent: 'center',
+                      marginBottom: 24,
+                  },
+                  mb8: { marginBottom: 8 },
+                  buttonText: {
+                      color: theme.colors.buttoncolor 
+                  }
+              });
 
           //Mock Local Data
           
@@ -120,6 +150,10 @@ export default function EventsScreen({ navigation }){
     <View style={styles.container}>
       <Text variant="headlineMedium" style={styles.topMarg}>Events</Text> 
 
+      <Divider style={styles.divider2} />
+
+
+
       {/* Search Input */}
       <TextInput
         label="Search events..."
@@ -136,7 +170,7 @@ export default function EventsScreen({ navigation }){
       {errorMsg ? <Text style={styles.errorText}>{errorMsg}</Text> : null}
 
 
-      
+      <Divider style={styles.divider2} />
       
       {/* Event List */}
       
@@ -185,7 +219,8 @@ export default function EventsScreen({ navigation }){
       <Divider style={styles.divider} />
       
            
-      <Button style={styles.buts}
+      <Button 
+      labelStyle={styles.buttonText}
        mode='contained' 
        onPress={navigateToEventDetails}
        disable = {!selectedEvent || loading}
@@ -211,15 +246,5 @@ export default function EventsScreen({ navigation }){
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 40, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
-  title: { fontSize: 24, fontWeight: '600' },
-  topMarg: {marginBottom: 16, marginTop: 20},
-  buts: {backgroundColor: '#2c2727ff'},
-  divider: {marginVertical: 20},
-  marg16:{marginBottom: 16},
-  mb8: { marginBottom: 8 },
-  mb16: { marginBottom: 16 },
-  mt16: { marginTop: 16 },
-});
+
  

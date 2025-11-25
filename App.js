@@ -40,6 +40,18 @@ function Tabs() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         headerShown: false,
+        tabBarStyle: {
+      backgroundColor: '#272323ff', 
+      borderTopWidth: 0,
+      elevation: 0,
+      height: 100,
+    },
+    tabBarActiveTintColor: '#ffffff',
+    tabBarInactiveTintColor: '#999999',
+    tabBarLabelStyle: {
+      fontSize: 12,
+      marginBottom: 5,
+    },
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

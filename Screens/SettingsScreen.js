@@ -4,12 +4,22 @@ import { Text, Button, List, Divider, TextInput, Switch, Snackbar } from 'react-
 import { ThemeContext } from '../Theme/ThemeContext';  
 
 export default function SettingScreen({ navigation }){
-  const {isDark, toggleTheme} = React.useContext(ThemeContext);
+  const {isDark, toggleTheme, theme} = React.useContext(ThemeContext);
 
   const [sounds, setSounds] = React.useState(true);
   const [snack, setSnack] = React.useState(false);
   
-  
+  const styles = StyleSheet.create({
+  container: { flex: 1, padding: 40, justifyContent: 'flex-start' },
+  title: { fontSize: 24, fontWeight: '600' },
+  topMarg: {marginBottom: 16, marginTop: 20},
+  divider: {marginVertical: 20},
+  marg16:{marginBottom: 16},
+  mb8: { marginBottom: 8 },
+  mb16: { marginBottom: 16 },
+  mt16: { marginTop: 16 },
+  buttonText:{color: theme.colors.buttoncolor}
+});
 
   return (
     <View style={styles.container}>
@@ -29,13 +39,14 @@ export default function SettingScreen({ navigation }){
         <List.Item 
           title="Dark Mode"
           description={isDark ? 'On' : 'Off'}
+          
           right={() => (
             <Switch  value={isDark} onValueChange={toggleTheme}  />
           )}
         />
       </List.Section>
 
-      <Button style={styles.buts} mode="contained" onPress={() => setSnack(true)}>
+      <Button labelStyle={styles.buttonText} mode="contained" onPress={() => setSnack(true)}>
         Save Settings
       </Button>
 
@@ -46,15 +57,5 @@ export default function SettingScreen({ navigation }){
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 40, justifyContent: 'flex-start', backgroundColor: '#99cafcff' },
-  title: { fontSize: 24, fontWeight: '600' },
-  topMarg: {marginBottom: 16, marginTop: 20},
-  buts: {backgroundColor: '#2c2727ff'},
-  divider: {marginVertical: 20},
-  marg16:{marginBottom: 16},
-  mb8: { marginBottom: 8 },
-  mb16: { marginBottom: 16 },
-  mt16: { marginTop: 16 },
-});
+
  
