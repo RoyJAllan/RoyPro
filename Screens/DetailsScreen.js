@@ -20,6 +20,7 @@ export default function DetailsScreen({ route, navigation }) {
                     divider: {marginVertical: 20},
                     divider2: {marginVertical: 10},
                     divder3: {marginVertical: 30},
+                    divder4: {marginVertical: 50},
                     homeMarg: {
                         marginBottom: 16, 
                         marginTop: 20,
@@ -44,11 +45,12 @@ export default function DetailsScreen({ route, navigation }) {
     setLoading(true);
     setTimeout(() => setLoading(false), 1200); // fake wait
   };
+  
 
   return (
     <View style={styles.container}>
       
-      
+      <Divider style={styles.divider}/>
       <Text variant="headlineSmall">{eventDetail.title}</Text>
       <Divider style={styles.divider}/>
       <Text variant="bodyMedium" style={styles.detailText}>
@@ -60,7 +62,7 @@ export default function DetailsScreen({ route, navigation }) {
                       navigation.navigate('Register')}>
                         Register for Event
                       </Button>
-      <Divider style={styles.divider} />
+      
 
       
     </View>

@@ -49,22 +49,7 @@ export default function EventsScreen({ navigation }){
                   }
               });
 
-          //Mock Local Data
-          
-           //const [Events, setEvents] = React.useState([
-       // { id: 1, text: 'Surfing'},
-     //  { id: 2, text: "Dancing"},
-       // { id: 3, text: "Sleeping"},
-
          
-  //  ]);
-
-      //const [EventDetails, setDetails] = React.useState([
-    //  {id: 1, text: 'Join us for a friendly comp at Boomerang beach!'},
-//{ id: 2, text: 'Learn to dance with professional instructors!' },
-   //     { id: 3, text: 'Relax and recharge with a guided sleep session!' },
-
-   //   ]);
 
         //ANCHOR - Load Remote data into our APP from the JSON file on gitpages
   const loadRemote = React.useCallback(async () => {
@@ -126,8 +111,8 @@ export default function EventsScreen({ navigation }){
         const eventDetails ={
         id:selectedEvent.id,
         title:`${selectedEvent.title}` ,
-        text: `${selectedEvent.description}\n\nDate:${selectedEvent.date}\nTime: ${selectedEvent.startTime} - ${selectedEvent.endTime} 
-        \n Location: ${selectedEvent.location} \nCategory: ${selectedEvent.category}\nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity} ${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
+        text: `${selectedEvent.description}\n\nDate: ${selectedEvent.date}\nTime: ${selectedEvent.startTime} - ${selectedEvent.endTime} 
+        \nLocation: ${selectedEvent.location} \nCategory: ${selectedEvent.category}\nSpots Available: ${selectedEvent.spotsRemaining}/${selectedEvent.capacity} ${selectedEvent.isCancelled ? '\n\n This event has been cancelled' : ''}`
           
         };
         navigation.navigate('Event Details', {
@@ -139,6 +124,9 @@ export default function EventsScreen({ navigation }){
         eventDetail: eventDetails
 
       }); 
+      
+
+       
      } else {
         alert('Please select an Event');
       }

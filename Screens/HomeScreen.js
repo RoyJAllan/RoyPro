@@ -10,6 +10,9 @@ export default function HomeScreen({ navigation }) {
     //STATE section
      const [searchQuery, setSearchQuery] = React.useState('');
      const {theme} = React.useContext(ThemeContext)
+     
+         const [firstName, setFirstName] = React.useState('');
+         const [lastName, setLastName] = React.useState('');
 
    const styles = StyleSheet.create({
         container: { 
