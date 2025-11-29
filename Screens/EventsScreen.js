@@ -121,10 +121,15 @@ export default function EventsScreen({ navigation }){
           displayText: selectedEvent.title,
           OriginalData: selectedEvent
         },
+        
         eventDetail: eventDetails
 
       }); 
       
+       navigation.setParams({
+            eventIdForRegistration: selectedEvent.id,
+            eventTitleForRegistration: selectedEvent.title
+        }, 'Register'); 
 
        
      } else {
@@ -235,6 +240,3 @@ export default function EventsScreen({ navigation }){
     </View>
   );
 }
-
-
- 

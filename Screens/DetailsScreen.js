@@ -9,6 +9,7 @@ export default function DetailsScreen({ route, navigation }) {
   const [loading, setLoading] = React.useState(false);
   const { event, eventDetail} = route.params;
   const {theme} = React.useContext(ThemeContext)
+  const [events, setEvents] = React.useState([]);
 
    const styles = StyleSheet.create({
                     container: { 
@@ -46,6 +47,27 @@ export default function DetailsScreen({ route, navigation }) {
     setTimeout(() => setLoading(false), 1200); // fake wait
   };
   
+  const navigateToEventRegister = () => { if (eventDetail) {
+        const eventTitles ={
+        id:eventDetail.id,
+        title:`${eventDetail.title}`};
+        navigation.navigate('Register', {
+          event: {
+          id:eventDetail.id,
+          displayText: eventDetail.title,
+          OriginalData:eventDetail
+        },
+        eventTitle: eventTitles
+
+      }); 
+      
+
+       
+     } else {
+        alert('Please select an Event');
+      }
+
+      };
 
   return (
     <View style={styles.container}>
@@ -58,8 +80,7 @@ export default function DetailsScreen({ route, navigation }) {
       </Text>
       <Divider style={styles.divider}/>
       
-      <Button labelStyle={styles.buttonText} style={styles.buts} mode='contained' onPress={ () => 
-                      navigation.navigate('Register')}>
+      <Button labelStyle={styles.buttonText} style={styles.buts} mode='contained' onPress={navigateToEventRegister} >
                         Register for Event
                       </Button>
       

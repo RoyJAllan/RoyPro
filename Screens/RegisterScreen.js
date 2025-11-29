@@ -10,7 +10,8 @@ export default function RegisterScreen({ route, navigation }) {
     //STATE INPUT
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
-     
+    const {eventTitle} = route.params;
+    
     
     
 
@@ -59,9 +60,17 @@ const {theme} = React.useContext(ThemeContext)
 
             
             
-            <Text variant='headlineMedium' style={styles.homeMarg}>Register</Text>
+            
+
+
             
             <Divider style={styles.divider} />
+
+            <Text variant="headlineSmall"> {eventTitle.title}</Text>
+            <Divider style={styles.divider} />
+            <Text variant='headlineSmall' style={styles.homeMarg}>Register</Text>
+
+
 
 
             <View style={styles.inputContainer}>
